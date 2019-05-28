@@ -3,18 +3,22 @@ const body_parser = require('body-parser');
 const joi = require('joi');
 const axios = require('axios').default;
 
-const key = 'cc0a1f581638a96d0ec42c6d7508d365';
+const key = '118c32502ff8e944fd89a763fbb986a1';
 const base_url = 'https://api.rajaongkir.com/starter';
 
 const app = express();
 
 // app.use = middleware --> semua request masuk dari sini
 
+app.use('/assets/public', express.static(__dirname + "/assets/public"));
+app.set("view engine", "ejs");
 app.use(body_parser.json());
 
 // endpoint provinsi
 // async -> supaya prosesnya tidak blocking
-
+app.get('/', function(req, res, next){
+   res.render('index');
+})
 app.get('/provinsi', async function(req, res, next){
 
    //set nilai key pada header --> isinya API yang diatas
@@ -29,7 +33,8 @@ app.get('/provinsi', async function(req, res, next){
    try {
       var response = await axios.get(base_url + '/province', { headers: header});
    } catch (error) {
-      res.status(400).send({ error: error.message });
+      console.log(error.response.data)
+      return res.status(400).send({ error: error.message });
    }
 
    //response.data --> mengambil data dari hasil request axios
@@ -42,7 +47,7 @@ app.get('/provinsi', async function(req, res, next){
 //endpoint city
 //schema untuk memvalidasi data lengkap --> idProvinsi ada
 
-app.get('/city', async function(req, res, next){
+app.get('/kota', async function(req, res, next){
    const schema = joi.object().keys({
       idProvinsi: joi.string().required()
    });
@@ -78,7 +83,7 @@ app.get('/city', async function(req, res, next){
 
 //endpoint cost
 
-app.post('/cost', async function (req, res, next) {
+app.post('/harga', async function (req, res, next) {
    const schema = joi.object().keys({
       asal: joi.string().required(),
       tujuan: joi.string().required(),
