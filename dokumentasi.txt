@@ -1,0 +1,25 @@
+dokumentasi API - pjt-logistik
+https://pjt-logistik.herokuapp.com/provinsi
+Tipe : get
+
+https://pjt-logistik.herokuapp.com/kota?idProvinsi
+Tipe : get
+parameter : idProvinsi
+
+https://pjt-logistik.herokuapp.com/harga 
+Tipe : post
+body : asal(string), tujuan(string), berat(number)
+response: [dri postman]
+
+-----
+
+langkah berikutnya 
+1. bikin UI yang bisa menggunakan 2 API --> bisa web 
+ataupun desktop
+
+-----
+
+langkah mengambil API kelompok lain
+1. cek dokumentasi
+2. coba di postman
+3. panggil 
